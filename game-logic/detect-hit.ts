@@ -10,7 +10,7 @@ export function detectHit(dataBoard: DataBoard, guess: string): DataBoard {
 
   const target = dataBoard[firstIndex]![secondIndex]!;
 
-  if (target.hit === true || target.id === null) {
+  if (target.hit === true) {
     return dataBoard;
   } else {
     target.hit = true;

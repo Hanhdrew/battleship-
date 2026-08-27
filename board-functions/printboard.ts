@@ -23,9 +23,13 @@ export function printBoard(
     for (let obj of row) {
       let placeHolderVisible = "-";
       let placeHolderTransparent = "-";
-      if (obj.hit === true) {
+      if (obj.hit === true && obj.type !== "empty") {
         placeHolderVisible = "🟠";
         placeHolderTransparent = "🟠";
+      }
+      if (obj.hit === true && obj.type === "empty") {
+        placeHolderVisible = "❌";
+        placeHolderTransparent = "❌";
       }
       if (obj.type === "large") {
         placeHolderTransparent = "L";

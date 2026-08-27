@@ -17,6 +17,7 @@ export type BoardMetaData = {
   totalSmallShipsHit: number;
   largeShipsSunk: number;
   smallShipsSunk: number;
+  misses: number;
 };
 
 // Large: 1 × Carrier — 5 squares

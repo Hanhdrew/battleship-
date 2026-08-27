@@ -2,11 +2,11 @@ console.log("Hello via Bun!");
 
 //todo
 //high priority - create red x for spaces missed
-// - need to add new type definition for misses in getBoardState()
-// - need to create a new parameter for meta data for misses in board
-// - need to add logic for getBoardState() for misses
+// - need to add new type definition for misses in getBoardState() ✅
+// - need to create a new parameter for meta data for misses in board ✅
+// - need to add logic for getBoardState() for misses ✅
 // - need to add logic to printBoard() to accommodate misses
-// - need to modify detectHit() for misses
+// - need to modify detectHit() for misses ✅
 // (could be as simple as adding another conditional statement)
 
 //medium priority

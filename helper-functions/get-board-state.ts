@@ -5,6 +5,7 @@ import type { DataBoard, BoardMetaData } from "../board-functions/board-types";
 export function getBoardState(dataBoard: DataBoard): BoardMetaData {
   const largeShipCells = dataBoard.flat().filter((row) => row.type === "large");
   const smallShipCells = dataBoard.flat().filter((row) => row.type === "small");
+  const emptyShipCells = dataBoard.flat().filter((row) => row.type === "empty");
   const metaData = {
     totalLargeShips: new Set(largeShipCells.map((row) => row.id)).size,
     totalSmallShips: new Set(smallShipCells.map((row) => row.id)).size,
@@ -22,6 +23,7 @@ export function getBoardState(dataBoard: DataBoard): BoardMetaData {
     smallShipsSunk: new Set(
       smallShipCells.filter((row) => row.isSunk).map((row) => row.id),
     ).size,
+    misses: emptyShipCells.filter((row) => row.hit).length,
   };
 
   return metaData;
