@@ -31,3 +31,26 @@ export function turnPrompts(
 
   return returnStrings.miss;
 }
+
+// destroyer: number;
+// submarine: number;
+// cruiser: number;
+// battleship: number;
+// carrier: number;
+// remainingDestroyers: number;
+// remainingSubmarines: number;
+// remainingCruisers: number;
+// remainingBattleships: number;
+// remainingCarriers: number;
+// totalDestroyersHit: number;
+// totalSubmarinesHit: number;
+// totalCruisersHit: number;
+// totalBattleshipsHit: number;
+// totalCarriersHit: number;
+// destroyersSunk: number;
+// submarinesSunk: number;
+// cruisersSunk: number;
+// battleshipsSunk: number;
+// carriersSunk: number;
+// misses: number;
+// totalShipsRemaining: number;

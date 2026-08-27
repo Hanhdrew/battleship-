@@ -5,20 +5,26 @@ import { generateID } from "../helper-functions/generate-ids";
 import type { DataBoard } from "./board-types";
 
 export function generatePlayerBoard(dataBoard: DataBoard): DataBoard {
-  let largeShips: number = 0;
-  let smallShips: number = 0;
+  let destroyer: number = 0;
+  let submarine: number = 0;
+  let cruiser: number = 0;
+  let battleship: number = 0;
+  let carrier: number = 0;
 
-  //ships based off the size of the board:
-  //changed to 6 => 8 => and 10
-  if (dataBoard.length === 4) {
-    largeShips = 1;
-    smallShips = 1;
-  } else if (dataBoard.length === 5) {
-    largeShips = 1;
-    smallShips = 2;
+  if (dataBoard.length === 10) {
+    destroyer = 1;
+    submarine = 1;
+    cruiser = 1;
+    battleship = 1;
+    carrier = 1;
+  } else if (dataBoard.length === 8) {
+    destroyer = 1;
+    submarine = 1;
+    cruiser = 1;
+    battleship = 1;
   } else if (dataBoard.length === 6) {
-    largeShips = 2;
-    smallShips = 2;
+    destroyer = 2;
+    submarine = 1;
   }
 
   const direction: { row: number; col: number }[] = [
@@ -28,9 +34,7 @@ export function generatePlayerBoard(dataBoard: DataBoard): DataBoard {
     { row: 1, col: 0 }, //down
   ];
 
-  //large ship generation
-
-  while (largeShips > 0) {
+  while (destroyer > 0) {
     const row: number = Math.floor(Math.random() * dataBoard.length);
     const column: number = Math.floor(Math.random() * dataBoard.length);
     const directionIndex: number = Math.floor(Math.random() * 4);
@@ -41,67 +45,13 @@ export function generatePlayerBoard(dataBoard: DataBoard): DataBoard {
     if (!randomDirection) continue;
 
     const coordinates: { row: number; column: number }[] = [
-      //spot one:
       { row: row, column: column },
-      //spot two:
-      { row: row + randomDirection.row, column: column + randomDirection.col },
-      //spot three:
-      {
-        row: row + randomDirection.row * 2,
-        column: column + randomDirection.col * 2,
-      },
-    ];
-
-    //validates empty spaces
-    for (let i of coordinates) {
-      if (
-        i.row < 0 ||
-        i.row >= dataBoard.length ||
-        i.column < 0 ||
-        i.column >= dataBoard.length ||
-        dataBoard[i.row]![i.column]!.type !== "empty"
-      ) {
-        validSpots = false;
-        break;
-      }
-    }
-
-    if (!validSpots) {
-      continue;
-    }
-
-    //place the ships
-    for (let i of coordinates) {
-      dataBoard[i.row]![i.column]!.type = "large";
-      dataBoard[i.row]![i.column]!.id = id;
-    }
-
-    largeShips--;
-  }
-
-  //small ship generation
-
-  while (smallShips > 0) {
-    const row: number = Math.floor(Math.random() * dataBoard.length);
-    const column: number = Math.floor(Math.random() * dataBoard.length);
-    const directionIndex: number = Math.floor(Math.random() * 4);
-    const randomDirection = direction[directionIndex];
-    const id: number = generateID();
-    let validSpots = true;
-
-    if (!randomDirection) continue;
-
-    const coordinates: { row: number; column: number }[] = [
-      //spot one:
-      { row: row, column: column },
-      //spot two:
       {
         row: row + randomDirection.row,
         column: column + randomDirection.col,
       },
     ];
 
-    //validates spots
     for (let i of coordinates) {
       if (
         i.row < 0 ||
@@ -119,14 +69,216 @@ export function generatePlayerBoard(dataBoard: DataBoard): DataBoard {
       continue;
     }
 
-    //place the ships
     for (let i of coordinates) {
-      dataBoard[i.row]![i.column]!.type = "small";
+      dataBoard[i.row]![i.column]!.type = "destroyer";
       dataBoard[i.row]![i.column]!.id = id;
     }
 
-    smallShips--;
+    destroyer--;
   }
 
+  while (submarine > 0) {
+    const row: number = Math.floor(Math.random() * dataBoard.length);
+    const column: number = Math.floor(Math.random() * dataBoard.length);
+    const directionIndex: number = Math.floor(Math.random() * 4);
+    const randomDirection = direction[directionIndex];
+    const id: number = generateID();
+    let validSpots = true;
+
+    if (!randomDirection) continue;
+
+    const coordinates: { row: number; column: number }[] = [
+      { row: row, column: column },
+      {
+        row: row + randomDirection.row,
+        column: column + randomDirection.col,
+      },
+      {
+        row: row + randomDirection.row * 2,
+        column: column + randomDirection.col * 2,
+      },
+    ];
+
+    for (let i of coordinates) {
+      if (
+        i.row < 0 ||
+        i.row >= dataBoard.length ||
+        i.column < 0 ||
+        i.column >= dataBoard.length ||
+        dataBoard[i.row]![i.column]!.type !== "empty"
+      ) {
+        validSpots = false;
+        break;
+      }
+    }
+
+    if (!validSpots) {
+      continue;
+    }
+
+    for (let i of coordinates) {
+      dataBoard[i.row]![i.column]!.type = "submarine";
+      dataBoard[i.row]![i.column]!.id = id;
+    }
+
+    submarine--;
+  }
+  while (cruiser > 0) {
+    const row: number = Math.floor(Math.random() * dataBoard.length);
+    const column: number = Math.floor(Math.random() * dataBoard.length);
+    const directionIndex: number = Math.floor(Math.random() * 4);
+    const randomDirection = direction[directionIndex];
+    const id: number = generateID();
+    let validSpots = true;
+
+    if (!randomDirection) continue;
+
+    const coordinates: { row: number; column: number }[] = [
+      { row: row, column: column },
+      {
+        row: row + randomDirection.row,
+        column: column + randomDirection.col,
+      },
+      {
+        row: row + randomDirection.row * 2,
+        column: column + randomDirection.col * 2,
+      },
+    ];
+
+    for (let i of coordinates) {
+      if (
+        i.row < 0 ||
+        i.row >= dataBoard.length ||
+        i.column < 0 ||
+        i.column >= dataBoard.length ||
+        dataBoard[i.row]![i.column]!.type !== "empty"
+      ) {
+        validSpots = false;
+        break;
+      }
+    }
+
+    if (!validSpots) {
+      continue;
+    }
+
+    for (let i of coordinates) {
+      dataBoard[i.row]![i.column]!.type = "cruiser";
+      dataBoard[i.row]![i.column]!.id = id;
+    }
+
+    cruiser--;
+  }
+
+  while (battleship > 0) {
+    const row: number = Math.floor(Math.random() * dataBoard.length);
+    const column: number = Math.floor(Math.random() * dataBoard.length);
+    const directionIndex: number = Math.floor(Math.random() * 4);
+    const randomDirection = direction[directionIndex];
+    const id: number = generateID();
+    let validSpots = true;
+
+    if (!randomDirection) continue;
+
+    const coordinates: { row: number; column: number }[] = [
+      { row: row, column: column },
+      {
+        row: row + randomDirection.row,
+        column: column + randomDirection.col,
+      },
+      {
+        row: row + randomDirection.row * 2,
+        column: column + randomDirection.col * 2,
+      },
+      {
+        row: row + randomDirection.row * 3,
+        column: column + randomDirection.col * 3,
+      },
+    ];
+
+    for (let i of coordinates) {
+      if (
+        i.row < 0 ||
+        i.row >= dataBoard.length ||
+        i.column < 0 ||
+        i.column >= dataBoard.length ||
+        dataBoard[i.row]![i.column]!.type !== "empty"
+      ) {
+        validSpots = false;
+        break;
+      }
+    }
+
+    if (!validSpots) {
+      continue;
+    }
+
+    for (let i of coordinates) {
+      dataBoard[i.row]![i.column]!.type = "battleship";
+      dataBoard[i.row]![i.column]!.id = id;
+    }
+
+    battleship--;
+  }
+  while (carrier > 0) {
+    const row: number = Math.floor(Math.random() * dataBoard.length);
+    const column: number = Math.floor(Math.random() * dataBoard.length);
+    const directionIndex: number = Math.floor(Math.random() * 4);
+    const randomDirection = direction[directionIndex];
+    const id: number = generateID();
+    let validSpots = true;
+
+    if (!randomDirection) continue;
+
+    const coordinates: { row: number; column: number }[] = [
+      { row: row, column: column },
+      {
+        row: row + randomDirection.row,
+        column: column + randomDirection.col,
+      },
+      {
+        row: row + randomDirection.row * 2,
+        column: column + randomDirection.col * 2,
+      },
+      {
+        row: row + randomDirection.row * 3,
+        column: column + randomDirection.col * 3,
+      },
+      {
+        row: row + randomDirection.row * 4,
+        column: column + randomDirection.col * 4,
+      },
+    ];
+
+    for (let i of coordinates) {
+      if (
+        i.row < 0 ||
+        i.row >= dataBoard.length ||
+        i.column < 0 ||
+        i.column >= dataBoard.length ||
+        dataBoard[i.row]![i.column]!.type !== "empty"
+      ) {
+        validSpots = false;
+        break;
+      }
+    }
+
+    if (!validSpots) {
+      continue;
+    }
+
+    for (let i of coordinates) {
+      dataBoard[i.row]![i.column]!.type = "carrier";
+      dataBoard[i.row]![i.column]!.id = id;
+    }
+
+    carrier--;
+  }
   return dataBoard;
 }
+
+// Large: 1 × Carrier — 5 squares
+// Large: 1 × Battleship — 4 squares
+// Medium: 1 × Cruiser — 3 squares
+// Small: 1 × Submarine — 3 squares
+// Small: 1 × Destroyer — 2 squares
