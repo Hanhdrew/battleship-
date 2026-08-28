@@ -9,48 +9,47 @@ export function turnPrompts(
   previousMetaData: BoardMetaData,
   currentMetaData: BoardMetaData,
 ): string {
-  const returnStrings = {
-    sunkSmall: `${name} sunk a small ship!`,
-    sunkLarge: `${name} sunk a large ship!`,
-    hitSmall: `${name} hit a small ship!`,
-    hitLarge: `${name} hit a large ship!`,
-    miss: `${name} missed!`,
-  };
+  if (currentMetaData.misses > previousMetaData.misses) {
+    return `${name} missed!`;
+  }
 
-  if (currentMetaData.smallShipsSunk > previousMetaData.smallShipsSunk)
-    return returnStrings.sunkSmall;
+  if (currentMetaData.destroyersSunk > previousMetaData.destroyersSunk) {
+    return `${name} sunk a Destroyer!`;
+  }
+  if (currentMetaData.submarinesSunk > previousMetaData.submarinesSunk) {
+    return `${name} sunk a Submarine!`;
+  }
+  if (currentMetaData.cruisersSunk > previousMetaData.cruisersSunk) {
+    return `${name} sunk a Cruiser!`;
+  }
+  if (currentMetaData.battleshipsSunk > previousMetaData.battleshipsSunk) {
+    return `${name} sunk a Battleship!`;
+  }
+  if (currentMetaData.carriersSunk > previousMetaData.carriersSunk) {
+    return `${name} sunk a Carrier!`;
+  }
 
-  if (currentMetaData.largeShipsSunk > previousMetaData.largeShipsSunk)
-    return returnStrings.sunkLarge;
+  if (
+    currentMetaData.totalDestroyersHit > previousMetaData.totalDestroyersHit
+  ) {
+    return `${name} hit a Destroyer!`;
+  }
+  if (
+    currentMetaData.totalSubmarinesHit > previousMetaData.totalSubmarinesHit
+  ) {
+    return `${name} hit a Submarine!`;
+  }
+  if (currentMetaData.totalCruisersHit > previousMetaData.totalCruisersHit) {
+    return `${name} hit a Cruiser!`;
+  }
+  if (
+    currentMetaData.totalBattleshipsHit > previousMetaData.totalBattleshipsHit
+  ) {
+    return `${name} hit a Battleship!`;
+  }
+  if (currentMetaData.totalCarriersHit > previousMetaData.totalCarriersHit) {
+    return `${name} hit a Carrier!`;
+  }
 
-  if (currentMetaData.totalSmallShipsHit > previousMetaData.totalSmallShipsHit)
-    return returnStrings.hitSmall;
-
-  if (currentMetaData.totalLargeShipsHit > previousMetaData.totalLargeShipsHit)
-    return returnStrings.hitLarge;
-
-  return returnStrings.miss;
+  return `${name} missed!`;
 }
-
-// destroyer: number;
-// submarine: number;
-// cruiser: number;
-// battleship: number;
-// carrier: number;
-// remainingDestroyers: number;
-// remainingSubmarines: number;
-// remainingCruisers: number;
-// remainingBattleships: number;
-// remainingCarriers: number;
-// totalDestroyersHit: number;
-// totalSubmarinesHit: number;
-// totalCruisersHit: number;
-// totalBattleshipsHit: number;
-// totalCarriersHit: number;
-// destroyersSunk: number;
-// submarinesSunk: number;
-// cruisersSunk: number;
-// battleshipsSunk: number;
-// carriersSunk: number;
-// misses: number;
-// totalShipsRemaining: number;

@@ -3,27 +3,69 @@
 import type { DataBoard, BoardMetaData } from "../board-functions/board-types";
 
 export function getBoardState(dataBoard: DataBoard): BoardMetaData {
-  const largeShipCells = dataBoard.flat().filter((row) => row.type === "large");
-  const smallShipCells = dataBoard.flat().filter((row) => row.type === "small");
-  const emptyShipCells = dataBoard.flat().filter((row) => row.type === "empty");
-  const metaData = {
-    totalLargeShips: new Set(largeShipCells.map((row) => row.id)).size,
-    totalSmallShips: new Set(smallShipCells.map((row) => row.id)).size,
-    remainingLargeShips: new Set(
-      largeShipCells.filter((row) => !row.isSunk).map((row) => row.id),
+  const flat = dataBoard.flat();
+
+  const destroyerCells = flat.filter((row) => row.type === "destroyer");
+  const submarineCells = flat.filter((row) => row.type === "submarine");
+  const cruiserCells = flat.filter((row) => row.type === "cruiser");
+  const battleshipCells = flat.filter((row) => row.type === "battleship");
+  const carrierCells = flat.filter((row) => row.type === "carrier");
+  const emptyCells = flat.filter((row) => row.type === "empty");
+
+  const metaData: BoardMetaData = {
+    destroyer: new Set(destroyerCells.map((row) => row.id)).size,
+    submarine: new Set(submarineCells.map((row) => row.id)).size,
+    cruiser: new Set(cruiserCells.map((row) => row.id)).size,
+    battleship: new Set(battleshipCells.map((row) => row.id)).size,
+    carrier: new Set(carrierCells.map((row) => row.id)).size,
+
+    remainingDestroyers: new Set(
+      destroyerCells.filter((row) => !row.isSunk).map((row) => row.id),
     ).size,
-    remainingSmallShips: new Set(
-      smallShipCells.filter((row) => !row.isSunk).map((row) => row.id),
+    remainingSubmarines: new Set(
+      submarineCells.filter((row) => !row.isSunk).map((row) => row.id),
     ).size,
-    totalLargeShipsHit: largeShipCells.filter((row) => row.hit).length,
-    totalSmallShipsHit: smallShipCells.filter((row) => row.hit).length,
-    largeShipsSunk: new Set(
-      largeShipCells.filter((row) => row.isSunk).map((row) => row.id),
+    remainingCruisers: new Set(
+      cruiserCells.filter((row) => !row.isSunk).map((row) => row.id),
     ).size,
-    smallShipsSunk: new Set(
-      smallShipCells.filter((row) => row.isSunk).map((row) => row.id),
+    remainingBattleships: new Set(
+      battleshipCells.filter((row) => !row.isSunk).map((row) => row.id),
     ).size,
-    misses: emptyShipCells.filter((row) => row.hit).length,
+    remainingCarriers: new Set(
+      carrierCells.filter((row) => !row.isSunk).map((row) => row.id),
+    ).size,
+
+    totalDestroyersHit: destroyerCells.filter((row) => row.hit).length,
+    totalSubmarinesHit: submarineCells.filter((row) => row.hit).length,
+    totalCruisersHit: cruiserCells.filter((row) => row.hit).length,
+    totalBattleshipsHit: battleshipCells.filter((row) => row.hit).length,
+    totalCarriersHit: carrierCells.filter((row) => row.hit).length,
+
+    destroyersSunk: new Set(
+      destroyerCells.filter((row) => row.isSunk).map((row) => row.id),
+    ).size,
+    submarinesSunk: new Set(
+      submarineCells.filter((row) => row.isSunk).map((row) => row.id),
+    ).size,
+    cruisersSunk: new Set(
+      cruiserCells.filter((row) => row.isSunk).map((row) => row.id),
+    ).size,
+    battleshipsSunk: new Set(
+      battleshipCells.filter((row) => row.isSunk).map((row) => row.id),
+    ).size,
+    carriersSunk: new Set(
+      carrierCells.filter((row) => row.isSunk).map((row) => row.id),
+    ).size,
+
+    misses: emptyCells.filter((c) => c.hit).length,
+
+    totalShipsRemaining: new Set([
+      ...destroyerCells.filter((row) => !row.isSunk).map((row) => row.id),
+      ...submarineCells.filter((row) => !row.isSunk).map((row) => row.id),
+      ...cruiserCells.filter((row) => !row.isSunk).map((row) => row.id),
+      ...battleshipCells.filter((row) => !row.isSunk).map((row) => row.id),
+      ...carrierCells.filter((row) => !row.isSunk).map((row) => row.id),
+    ]).size,
   };
 
   return metaData;

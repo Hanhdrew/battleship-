@@ -38,9 +38,3 @@ export type BoardMetaData = {
   misses: number;
   totalShipsRemaining: number;
 };
-
-// Large: 1 × Carrier — 5 squares
-// Large: 1 × Battleship — 4 squares
-// Medium: 1 × Cruiser — 3 squares
-// Small: 1 × Submarine — 3 squares
-// Small: 1 × Destroyer — 2 squares
