@@ -2,7 +2,7 @@
 // - output is same shape as dataBoard
 
 import { generateID } from "../helper-functions/generate-ids";
-import type { DataBoard } from "./board-types";
+import type { DataBoard } from "../types";
 
 export function generatePlayerBoard(dataBoard: DataBoard): DataBoard {
   let destroyer: number = 0;

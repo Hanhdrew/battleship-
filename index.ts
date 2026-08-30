@@ -13,6 +13,7 @@ console.log("Hello via Bun!");
 //medium priority:
 // - need a new type definition for more ships ✅
 // - need to overhaul generatePlayerBoard() to accommodate new ship types✅
+// - printBoard() needs to accommodate new ship types
 // - turn prompts to be edited as well
 
 //low priority:

@@ -38,3 +38,9 @@ export type BoardMetaData = {
   misses: number;
   totalShipsRemaining: number;
 };
+
+export type EnemyAIState = {
+  tried: Set<string>;
+  huntQueue: string[];
+  lastHit: string | null;
+};

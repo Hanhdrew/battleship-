@@ -3,7 +3,7 @@
 // - for console use only
 // - it will NOT modify any values
 
-import type { DataBoard, VisibleBoard } from "./board-types";
+import type { DataBoard, VisibleBoard } from "../types";
 
 export function printBoard(
   dataBoard: DataBoard,

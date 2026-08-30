@@ -2,7 +2,7 @@
 //takes the original board meta data and a dynamic one
 //compares the two and returns the correct console log
 
-import type { BoardMetaData } from "../board-functions/board-types";
+import type { BoardMetaData } from "../types";
 
 export function turnPrompts(
   name: string,

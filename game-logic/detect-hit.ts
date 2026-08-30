@@ -2,7 +2,7 @@
 //output updated board
 //assume the input string is a valid string and within the board
 
-import type { DataBoard } from "../board-functions/board-types";
+import type { DataBoard } from "../types";
 
 export function detectHit(dataBoard: DataBoard, guess: string): DataBoard {
   const firstIndex: number = guess[0]!.charCodeAt(0) - 97;

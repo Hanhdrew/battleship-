@@ -1,6 +1,6 @@
 //takes an integer and returns a printable board
 
-import type { VisibleBoard } from "./board-types";
+import type { VisibleBoard } from "../types";
 
 export function generateBoard(num: number): VisibleBoard {
   const visibleBoard: Record<string, string[]> = {};
