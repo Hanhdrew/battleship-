@@ -42,5 +42,5 @@ export type BoardMetaData = {
 export type EnemyAIState = {
   tried: Set<string>;
   huntQueue: string[];
-  lastHit: string | null;
+  lastHit: boolean;
 };

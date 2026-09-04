@@ -1,26 +1,26 @@
-import type { EnemyAIState, DataBoard } from "../../types";
+//takes a guess from huntQueue and adds it to tried
+// if huntQueue is empty it will guess random
+
+import type { EnemyAIState } from "../../types";
 import { enemyGuessRandom } from "./enemy-guess-random";
 
-export function enemySmartGuess(board: DataBoard, ai: EnemyAIState): string {
-  // If we have queued guesses (adjacent cells), use them first
-  while (ai.huntQueue.length > 0) {
-    const guess = ai.huntQueue.shift()!;
-    if (!ai.tried.has(guess)) {
-      ai.tried.add(guess);
+export function enemySmartGuess(
+  boardSize: number,
+  aiState: EnemyAIState,
+): string {
+  while (aiState.huntQueue.length > 0) {
+    const guess = aiState.huntQueue.shift()!;
+    if (!aiState.tried.has(guess)) {
+      aiState.tried.add(guess);
       return guess;
     }
   }
 
-  const size = board.length;
-
-  while (true) {
-    const row = Math.floor(Math.random() * size);
-    const col = Math.floor(Math.random() * size);
-    const guess = `${String.fromCharCode(97 + row)}${col}`;
-
-    if (!ai.tried.has(guess)) {
-      ai.tried.add(guess);
-      return guess;
-    }
-  }
+  return enemyGuessRandom(boardSize);
 }
+
+// let aiState: EnemyAIState = {
+//   tried: new Set(),
+//   huntQueue: [],
+//   lastHit: null,
+// };

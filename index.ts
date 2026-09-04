@@ -1,3 +1,6 @@
+import { enemyGuessRandom } from "./game-logic/enemy-ai/enemy-guess-random";
+import type { EnemyAIState } from "./types";
+
 console.log("Hello via Bun!");
 
 //todo
@@ -14,13 +17,19 @@ console.log("Hello via Bun!");
 // - need a new type definition for more ships ✅
 // - need to overhaul generatePlayerBoard() to accommodate new ship types✅
 // - printBoard() needs to accommodate new ship types
-// - turn prompts to be edited as well
+// - turn prompts to be edited as well ✅
 
 //low priority:
 // - refactor playerBoard generation instead of one million loops
 
 //additional notes:
 // - askBoardSize no longer supports 4, 5 => is now 6, 8, 10
-// - generate playerBoards() does not reflect changes
-// - metaData should be saved for last except for misses which is priority
-// - metaData also needs to be overhauled to accommodate new ship types and misses
+
+let aiState: EnemyAIState = {
+  tried: new Set(),
+  huntQueue: [],
+  lastHit: false,
+};
+
+let boardSize = 3;
+let aiFirstGuess = enemyGuessRandom(boardSize);
