@@ -28,6 +28,7 @@ export function enemySmartGuess(
 // let aiState: EnemyAIState = {
 //   tried: new Set(),
 //   huntQueue: [],
+//   currentGuess = string;
 //   lastHit: null,
 // };
 

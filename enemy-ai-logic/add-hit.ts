@@ -1,4 +1,4 @@
-import type { EnemyAIState, BoardMetaData } from "../../types";
+import type { EnemyAIState, BoardMetaData } from "../types";
 
 export function addHit(
   aiState: EnemyAIState,
@@ -16,6 +16,7 @@ export function addHit(
     aiState.lastHit = true;
     return aiState;
   } else {
+    aiState.lastHit = false;
     return aiState;
   }
 }
