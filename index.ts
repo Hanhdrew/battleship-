@@ -1,4 +1,4 @@
-import { enemyGuessRandom } from "./game-logic/enemy-ai/enemy-guess-random";
+import { enemyGuessRandom } from "./enemy-ai-logic/enemy-guess-random";
 import type { EnemyAIState } from "./types";
 
 console.log("Hello via Bun!");
@@ -24,12 +24,3 @@ console.log("Hello via Bun!");
 
 //additional notes:
 // - askBoardSize no longer supports 4, 5 => is now 6, 8, 10
-
-let aiState: EnemyAIState = {
-  tried: new Set(),
-  huntQueue: [],
-  lastHit: false,
-};
-
-let boardSize = 3;
-let aiFirstGuess = enemyGuessRandom(boardSize);
