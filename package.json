@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "chalk": "^6.0.0",
-    "inquirer": "^14.2.0"
+    "inquirer": "^14.2.1"
   },
   "scripts": {
     "start-game": "bun run index.ts"

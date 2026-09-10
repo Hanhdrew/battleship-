@@ -1,28 +1,15 @@
-import type { EnemyAIState, BoardMetaData } from "../types";
+import type { BoardMetaData } from "../types";
 
-export function addHit(
-  aiState: EnemyAIState,
+export function checkHit(
   previousMetaData: BoardMetaData,
   currentMetaData: BoardMetaData,
-): EnemyAIState {
-  if (
+): boolean {
+  return (
     previousMetaData.totalDestroyersHit < currentMetaData.totalDestroyersHit ||
     previousMetaData.totalSubmarinesHit < currentMetaData.totalSubmarinesHit ||
     previousMetaData.totalCruisersHit < currentMetaData.totalCruisersHit ||
     previousMetaData.totalBattleshipsHit <
       currentMetaData.totalBattleshipsHit ||
     previousMetaData.totalCarriersHit < currentMetaData.totalCarriersHit
-  ) {
-    aiState.lastHit = true;
-    return aiState;
-  } else {
-    aiState.lastHit = false;
-    return aiState;
-  }
+  );
 }
-
-// totalDestroyersHit: number;
-// totalSubmarinesHit: number;
-// totalCruisersHit: number;
-// totalBattleshipsHit: number;
-// totalCarriersHit: number;

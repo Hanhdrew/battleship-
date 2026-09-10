@@ -1,4 +1,5 @@
 import inquirer from "inquirer";
+import chalk from "chalk";
 
 export async function endGame(
   messageSad: string,
@@ -8,16 +9,16 @@ export async function endGame(
     {
       type: "confirm",
       name: "end",
-      message: "Would you like to end game?",
+      message: chalk.bgBlack.cyanBright("Would you like to end game?"),
       default: true,
     },
   ]);
 
   if (result.end === true) {
-    console.log(messageSad);
+    console.log(chalk.bgBlack.cyanBright(messageSad));
     process.exit(0);
   } else {
-    console.log(messageGood);
+    console.log(chalk.bgBlack.cyanBright(messageGood));
     return false;
   }
 }

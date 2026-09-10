@@ -13,7 +13,7 @@ export function getAdjacentCoordinates(
   ];
 
   const directionIndex = Math.floor(Math.random() * 4);
-  const direction = directions[directionIndex];
+  const direction = directions[directionIndex]!;
 
   const newRow = firstIndex + direction.row;
   const newCol = secondIndex + direction.col;
