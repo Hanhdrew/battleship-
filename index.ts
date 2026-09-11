@@ -4,7 +4,7 @@ import type {
   EnemyAIState,
   VisibleBoard,
 } from "./types";
-import chalk from "chalk";
+import chalk, { backgroundColorNames } from "chalk";
 import { storeBoolean } from "./input-functions/store-boolean";
 import { endGame } from "./input-functions/endgame";
 import { storeInput } from "./input-functions/store-input";
@@ -15,6 +15,12 @@ import { generateDataBoard } from "./board-functions/generate-databoard";
 import { generatePlayerBoard } from "./board-functions/generate-playable-board";
 import { getBoardState } from "./helper-functions/get-metadata";
 import { printBoard } from "./board-functions/printboard";
+import { coinTossPrompt } from "./input-functions/coin-toss-prompt";
+import { generateCoinToss } from "./helper-functions/generate-coin-toss";
+import { playerTurn } from "./game-logic/player-turn";
+import { enemyTurn } from "./game-logic/enemy-turn";
+import { removeIndentation } from "./helper-functions/indentation-remover";
+import { options } from "./input-functions/options-menu";
 
 async function main() {
   // console.log(
@@ -64,16 +70,19 @@ async function main() {
 
   let boardSize = 10;
 
-  console.log(chalk.bgBlack.cyanBright("Initializing game..."));
+  console.log(chalk.bgBlack.cyanBright("💬 Initializing game ⌛"));
 
-  await delay(3000);
+  await delay(2000);
 
   let playerBoard: DataBoard = generateDataBoard(boardSize);
   let enemyBoard: DataBoard = generateDataBoard(boardSize);
   playerBoard = generatePlayerBoard(playerBoard);
   enemyBoard = generatePlayerBoard(enemyBoard);
-  let playerDataPrevious: BoardMetaData = getBoardState(playerBoard);
-  let enemyDataPrevious: BoardMetaData = getBoardState(enemyBoard);
+
+  let availableInputs = removeIndentation(`
+        A2, A0, B5, C6 etc...
+        Or type options for more options...
+        `);
 
   let aiState: EnemyAIState = {
     tried: new Set(),
@@ -81,8 +90,72 @@ async function main() {
     lastHit: null,
   };
 
-  printBoard(playerBoard, true);
-  printBoard(enemyBoard, true);
+  console.log(chalk.bgBlack.cyanBright("💬 Completed!"));
+  console.log(chalk.bgBlack.cyanBright("💬 Lets begin,"));
+
+  const coinToss = await coinTossPrompt("💬 Choose heads or tails:");
+
+  const winner = generateCoinToss(coinToss);
+
+  winner
+    ? console.log(chalk.bgBlack.greenBright("✅ You won the coin toss ✅"))
+    : console.log(chalk.bgBlack.redBright("❌ You loss the coin toss ❌"));
+
+  let firstGuessPrompt = winner;
+
+  while (true) {
+    const playerDataPrevious: BoardMetaData = getBoardState(playerBoard);
+    const enemyDataPrevious: BoardMetaData = getBoardState(enemyBoard);
+    let playerInput = "";
+
+    if (winner) {
+      console.log(chalk.bgBlack.redBright.bold("Enemy Board"));
+      printBoard(enemyBoard, false);
+
+      if (firstGuessPrompt) {
+        console.log(chalk.bgBlack.cyanBright("Make your first guess!"));
+        firstGuessPrompt = false;
+      } else {
+        console.log(chalk.bgBlack.cyanBright("Make your next guess!"));
+      }
+
+      while (true) {
+        playerInput = await storeInput(
+          `Here are your available inputs ${availableInputs}`,
+        );
+
+        const cleanInput = playerInput.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+        if (cleanInput === "options") {
+          const optionsMenu = await options("Select your option below");
+          if (optionsMenu === 1) continue;
+          if (optionsMenu === 2) return main();
+          if (optionsMenu === 3) {
+            await endGame("okay lesgo", "oh no");
+          }
+          if (optionsMenu === 4) {
+            console.log(chalk.bgBlack.cyanBright("Enemy board"));
+            printBoard(enemyBoard, true);
+            console.log(chalk.bgBlack.cyanBright("player board"));
+            printBoard(enemyBoard, true);
+          }
+          if (optionsMenu === 5) console.clear();
+          if (optionsMenu === 6) {
+            console.log(chalk.bgBlack.cyanBright("enemy board"));
+            console.log(enemyDataPrevious);
+            console.log(chalk.bgBlack.cyanBright("player board"));
+            console.log(playerDataPrevious);
+          }
+          continue;
+        }
+
+        // const isValidInput =
+      }
+    } else {
+      console.log(chalk.bgBlack.greenBright("Player Board"));
+      printBoard(playerBoard, false);
+    }
+  }
 }
 
 main();
