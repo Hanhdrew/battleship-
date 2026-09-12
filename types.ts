@@ -44,3 +44,22 @@ export type EnemyAIState = {
   huntQ: string[];
   lastHit: boolean | null;
 };
+
+export type PlayerState = {
+  tried: Set<string>;
+};
+
+export type GameState = {
+  playerBoard: DataBoard;
+  enemyBoard: DataBoard;
+  availableInputs: string;
+  aiState: EnemyAIState;
+  playerState: PlayerState;
+  boardSize: number;
+  userName: string;
+  firstGuessPrompt: boolean;
+};
+
+export type OptionsMenu = {
+  restart: () => Promise<void>;
+};
