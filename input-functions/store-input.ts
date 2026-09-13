@@ -6,7 +6,7 @@ export async function storeInput(message: string): Promise<string> {
     {
       type: "input",
       name: "input",
-      message: chalk.bgBlack.cyanBright(message),
+      message: chalk.bgBlack.magentaBright(message),
     },
   ]);
 

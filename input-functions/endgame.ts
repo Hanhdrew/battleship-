@@ -9,16 +9,16 @@ export async function endGame(
     {
       type: "confirm",
       name: "end",
-      message: chalk.bgBlack.cyanBright("Would you like to end game?"),
+      message: chalk.bgBlack.magentaBright("Would you like to end game?"),
       default: true,
     },
   ]);
 
   if (result.end === true) {
-    console.log(chalk.bgBlack.cyanBright(messageSad));
+    console.log(chalk.bgBlack.redBright(messageSad));
     process.exit(0);
   } else {
-    console.log(chalk.bgBlack.cyanBright(messageGood));
+    console.log(chalk.bgBlack.greenBright(messageGood));
     return false;
   }
 }

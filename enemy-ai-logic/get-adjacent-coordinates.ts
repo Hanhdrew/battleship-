@@ -1,9 +1,12 @@
+import type { DataBoard } from "../types";
+
 export function getAdjacentCoordinates(
   guess: string,
   boardSize: number,
-): string {
+  dataBoard: DataBoard,
+): string[] {
   const firstIndex = guess[0]!.charCodeAt(0) - 97; // row
-  const secondIndex = Number(guess[1]!); // col
+  const secondIndex = Number(guess.slice(1)); // col
 
   const directions = [
     { row: 0, col: 1 }, // right
@@ -12,13 +15,22 @@ export function getAdjacentCoordinates(
     { row: 1, col: 0 }, // down
   ];
 
-  const directionIndex = Math.floor(Math.random() * 4);
-  const direction = directions[directionIndex]!;
+  const resultArr: string[] = [];
 
-  const newRow = firstIndex + direction.row;
-  const newCol = secondIndex + direction.col;
+  for (let i = 0; i < 4; i++) {
+    const newFirstIndex = firstIndex + directions[i]!.row;
+    const newSecondIndex = secondIndex + directions[i]!.col;
 
-  const newRowLetter = String.fromCharCode(newRow + 97);
+    if (newFirstIndex < 0 || newFirstIndex >= boardSize) continue;
+    if (newSecondIndex < 0 || newSecondIndex >= boardSize) continue;
 
-  return `${newRowLetter}${newCol}`;
+    const newTarget = dataBoard[newFirstIndex]![newSecondIndex]!;
+
+    if (newTarget.hit) continue;
+
+    const letter = String.fromCharCode(newFirstIndex + 97);
+    resultArr.push(`${letter}${newSecondIndex}`);
+  }
+
+  return resultArr;
 }

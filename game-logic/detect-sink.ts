@@ -1,7 +1,4 @@
-//input dataBoard output dataBoard evaluating if a ship is sunk or not
-//will update isSunk property if sunk
-
-import type { DataBoard, Row } from "../types";
+import type { DataBoard } from "../types";
 
 export function detectSink(dataBoard: DataBoard): DataBoard {
   const cleanBoard = dataBoard.flat().filter((row) => row.id !== null);

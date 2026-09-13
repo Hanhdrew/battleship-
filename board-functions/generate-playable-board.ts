@@ -1,6 +1,3 @@
-//takes and transforms an array of board cells (dataBoard) to generate the ships (playerBoard)
-// - output is same shape as dataBoard
-
 import { generateID } from "../helper-functions/generate-ids";
 import type { DataBoard } from "../types";
 

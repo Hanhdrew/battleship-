@@ -7,7 +7,7 @@ import type {
   PlayerState,
   VisibleBoard,
 } from "./types";
-import chalk, { backgroundColorNames } from "chalk";
+import chalk from "chalk";
 import { storeBoolean } from "./input-functions/store-boolean";
 import { endGame } from "./input-functions/endgame";
 import { storeInput } from "./input-functions/store-input";
@@ -17,80 +17,88 @@ import { delay } from "./helper-functions/delay";
 import { generateDataBoard } from "./board-functions/generate-databoard";
 import { generatePlayerBoard } from "./board-functions/generate-playable-board";
 import { getBoardState } from "./helper-functions/get-metadata";
-import { printBoard } from "./board-functions/printboard";
 import { coinTossPrompt } from "./input-functions/coin-toss-prompt";
 import { generateCoinToss } from "./helper-functions/generate-coin-toss";
 import { playerTurn } from "./game-logic/player-turn";
 import { enemyTurn } from "./game-logic/enemy-turn";
 import { removeIndentation } from "./helper-functions/indentation-remover";
-import { options } from "./input-functions/options-menu";
+import { printBoard } from "./board-functions/printboard";
 
 async function main() {
-  // console.log(
-  //   chalk.bgBlack.cyanBright(
-  //     "💬 Hello, welcome to my Battleship game! ( ͡° ͜ʖ ͡°)",
-  //   ),
-  // );
+  console.clear();
+  console.log(
+    chalk.bgBlack.magentaBright.bold(
+      "💬 Hello, welcome to my Battleship game! ( ͡° ͜ʖ ͡°)",
+    ),
+  );
 
-  // const greetUser: boolean = await storeBoolean("💬 Are you ready to begin?");
+  const greetUser: boolean = await storeBoolean(
+    "💬 Are you ready to begin? 🚢",
+  );
 
-  // if (!greetUser)
-  //   await endGame(
-  //     "💬 Okay, goodbye (ง ͠ಥ_ಥ)ง",
-  //     "💬 alright lets continue! ヽ(°〇°)ﾉ",
-  //   );
+  if (!greetUser)
+    await endGame(
+      "💬 Okay, goodbye (ง ͠ಥ_ಥ)ง",
+      "💬 alright lets continue! ヽ(°〇°)ﾉ",
+    );
 
-  // let userName: string = "";
-  // while (true) {
-  //   console.log(chalk.bgBlack.cyanBright("💬 Okay, lets begin,"));
-  //   userName = await storeInput("💬 Lets start off with your name:");
+  console.log(chalk.bgBlack.magentaBright("💬 Okay, lets begin,"));
 
-  //   const confirm = await storeBoolean(
-  //     `💬 Confirm if you want ${userName} to be your name:`,
-  //   );
-  //   if (confirm) break;
-  // }
+  let userName: string = "";
+  while (true) {
+    userName = await storeInput("💬 Lets start off with your name:");
 
-  // let boardSize: number | null = null;
-  // while (true) {
-  //   console.clear();
-  //   boardSize = await askBoardSize(
-  //     `💬 Great, now lets select your board size. Here are your options:`,
-  //   );
+    const confirm = await storeBoolean(
+      `💬 Confirm if you want "${userName}" to be your name:`,
+    );
+    if (confirm) break;
+  }
 
-  //   const visibleBoard: VisibleBoard = generateBoard(boardSize);
-  //   console.table(visibleBoard);
+  let enemyName: string = "";
+  while (true) {
+    enemyName = await storeInput("💬 Lets also make your opponents name.");
 
-  //   const confirm: boolean = await storeBoolean(
-  //     `💬 Are you sure this board is what you would like, ${userName}?`,
-  //   );
-  //   if (confirm) break;
-  // }
+    const confirm = await storeBoolean(
+      `💬 Confirm if you want "${enemyName}" to be your opps 🎯 name:`,
+    );
+    if (confirm) break;
+  }
 
-  // console.log(
-  //   chalk.bgBlack.cyanBright("💬 Excellent, let us begin. ᕙ(  •̀ ᗜ •́  )ᕗ "),
-  // );
+  let boardSize: number | null = null;
+  while (true) {
+    console.clear();
+    boardSize = await askBoardSize(
+      `💬 Great, now lets select your board size. Here are your options:`,
+    );
 
-  // console.log(chalk.bgBlack.cyanBright("💬 Completed!"));
-  // console.log(chalk.bgBlack.cyanBright("💬 Lets begin,"));
+    const visibleBoard: VisibleBoard = generateBoard(boardSize);
+    console.table(visibleBoard);
 
-  // const coinToss = await coinTossPrompt("💬 Choose heads or tails:");
+    const confirm: boolean = await storeBoolean(
+      `💬 Are you sure this board is what you would like, ${userName}?`,
+    );
+    if (confirm) break;
+  }
 
-  // const winner = generateCoinToss(coinToss);
+  console.log(
+    chalk.bgBlack.magentaBright("💬 Excellent, let us begin. ᕙ(  •̀ ᗜ •́  )ᕗ "),
+  );
 
-  // winner
-  //   ? console.log(chalk.bgBlack.greenBright("✅ You won the coin toss ✅"))
-  //   : console.log(chalk.bgBlack.redBright("❌ You loss the coin toss ❌"));
+  console.log(chalk.bgBlack.magentaBright("💬 Lets begin,"));
 
-  // let firstGuessPrompt = winner;
+  const coinToss = await coinTossPrompt("💬 Choose heads or tails:");
 
-  // console.log(chalk.bgBlack.cyanBright("💬 Initializing game ⌛"));
+  const winner = generateCoinToss(coinToss);
 
-  // await delay(2000);
+  winner
+    ? console.log(chalk.bgBlack.greenBright("✅ You won the coin toss ✅"))
+    : console.log(chalk.bgBlack.redBright("❌ You loss the coin toss ❌"));
 
-  let boardSize = 10;
-  let userName = "andrew";
-  let firstGuessPrompt = true;
+  let firstGuessPrompt: boolean = true;
+
+  console.log(chalk.bgBlack.magentaBright("💬 Initializing game ⌛"));
+  await delay(3500);
+  console.log(chalk.bgBlack.magentaBright("💬 Completed!"));
 
   let playerBoard: DataBoard = generateDataBoard(boardSize);
   let enemyBoard: DataBoard = generateDataBoard(boardSize);
@@ -104,9 +112,11 @@ async function main() {
     tried: new Set(),
     huntQ: [],
     lastHit: null,
+    winner: false,
   };
   let playerState: PlayerState = {
     tried: new Set(),
+    winner: false,
   };
 
   const gameState: GameState = {
@@ -117,6 +127,7 @@ async function main() {
     playerState: playerState,
     boardSize: boardSize,
     userName: userName,
+    enemyName: enemyName,
     firstGuessPrompt: firstGuessPrompt,
   };
 
@@ -127,7 +138,6 @@ async function main() {
   };
 
   while (true) {
-    // console.clear();
     const playerDataPrevious: BoardMetaData = getBoardState(
       gameState.playerBoard,
     );
@@ -135,41 +145,54 @@ async function main() {
       gameState.enemyBoard,
     );
 
-    await playerTurn(gameState, enemyDataPrevious, optionsMenu);
-
-    // if (winner) {
-    //   console.log(chalk.bgBlack.redBright.bold("Enemy Board"));
-    //   printBoard(enemyBoard, false);
-
-    //   if (firstGuessPrompt) {
-    //     console.log(chalk.bgBlack.cyanBright("Make your first guess!"));
-    //     firstGuessPrompt = false;
-    //   } else {
-    //     console.log(chalk.bgBlack.cyanBright("Make your next guess!"));
-    //   }
-    // } else {
-    //   console.log(chalk.bgBlack.greenBright("Player Board"));
-    //   printBoard(playerBoard, false);
-    // }
-
-    // if (winner) {
-    //player goes first logic
-    // - put current playerData inside await playerTurn()
-    // - input is gameState object + previous metaData variables
-    // - output is mutated gameState object
-    //ai goes second logic
-    // - put current enemyData inside await enemyTurn()
-    // - input is gameState object + previous metaData variables
-    // - output is mutated gameState object
-    // } else {
-    //await enemyTurn()
-    //await playerTurn()
-    // }
+    if (winner) {
+      await playerTurn(gameState, enemyDataPrevious, optionsMenu);
+      await enemyTurn(gameState, playerDataPrevious);
+    } else {
+      await enemyTurn(gameState, playerDataPrevious);
+      await playerTurn(gameState, enemyDataPrevious, optionsMenu);
+    }
+    if (
+      gameState.aiState.winner === true ||
+      gameState.playerState.winner === true
+    )
+      break;
   }
+
+  console.clear();
+  console.log(chalk.bgBlack.whiteBright.bold.underline("GAME OVER"));
+  await delay(4000);
+
+  if (gameState.playerState.winner === true) {
+    console.log(
+      chalk.bgBlack.greenBright(
+        "💬 Congratulations! You won the Battleship Game! ◝(ᵔᗜᵔ)◜",
+      ),
+    );
+  } else {
+    console.log(
+      chalk.bgBlack.redBright(
+        "💬 Oh no! You lost the Battleship game, better luck next time! (ㆆ_ㆆ)",
+      ),
+    );
+  }
+
+  console.log(chalk.bgBlack.magentaBright("Here are the final results:"));
+  console.log(
+    chalk.bgBlack.greenBright.bold.underline(`${gameState.userName}'s board`),
+  );
+  printBoard(gameState.enemyBoard, false);
+  console.log(
+    chalk.bgBlack.redBright.bold.underline(`${gameState.enemyName}'s board`),
+  );
+  printBoard(gameState.playerBoard, false);
+
+  console.log(chalk.bgBlack.cyanBright("Thank you for playing, sincerely! 🤍"));
+  const lastOptions: boolean = await storeBoolean(
+    "💬 Would you like to restart the game?",
+  );
+
+  lastOptions ? optionsMenu.restart() : process.exit(0);
 }
 
 main();
-
-// ᕙ(  •̀ ᗜ •́  )ᕗ
-
-// (ㆆ_ㆆ)

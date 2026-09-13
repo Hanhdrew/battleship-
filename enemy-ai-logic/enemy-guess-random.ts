@@ -1,5 +1,3 @@
-//takes the size of the board and returns a random string coordinate
-
 export function enemyGuessRandom(boardSize: number): string {
   const row = Math.floor(Math.random() * boardSize);
   const col = Math.floor(Math.random() * boardSize);

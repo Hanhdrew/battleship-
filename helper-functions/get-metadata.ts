@@ -1,5 +1,3 @@
-//takes in a dataBoard and returns a board state
-
 import type { DataBoard, BoardMetaData } from "../types";
 
 export function getBoardState(dataBoard: DataBoard): BoardMetaData {

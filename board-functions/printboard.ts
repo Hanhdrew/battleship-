@@ -28,8 +28,8 @@ export function printBoard(
       let placeHolderTransparent = shipSymbols[obj.type]!;
 
       if (obj.hit && obj.type !== "empty") {
-        placeHolderVisible = "🟠";
-        placeHolderTransparent = "🟠";
+        placeHolderVisible = "💥";
+        placeHolderTransparent = "💥";
       }
 
       if (obj.hit && obj.type === "empty") {
@@ -38,8 +38,8 @@ export function printBoard(
       }
 
       if (obj.isSunk) {
-        placeHolderVisible = "❗";
-        placeHolderTransparent = "❗";
+        placeHolderVisible = "🔥";
+        placeHolderTransparent = "🔥";
       }
 
       visibleBoard[rowLabelVisible].push(placeHolderVisible);

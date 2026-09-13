@@ -6,10 +6,10 @@ export async function coinTossPrompt(message: string): Promise<boolean> {
     {
       type: "rawlist",
       name: "toss",
-      message: chalk.bgBlack.cyanBright(message),
+      message: chalk.bgBlack.magentaBright(message),
       choices: [
-        { name: chalk.bgBlack.cyanBright("Heads"), value: true },
-        { name: chalk.bgBlack.cyanBright("Tails"), value: false },
+        { name: chalk.bgBlack.magentaBright("👉 Heads"), value: true },
+        { name: chalk.bgBlack.magentaBright("👉 Tails"), value: false },
       ],
     },
   ]);

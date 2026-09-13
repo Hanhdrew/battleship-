@@ -6,7 +6,7 @@ export async function storeBoolean(message: string): Promise<boolean> {
     {
       type: "confirm",
       name: "boolean",
-      message: chalk.bgBlack.cyanBright(message),
+      message: chalk.bgBlack.magentaBright(message),
       default: true,
     },
   ]);

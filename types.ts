@@ -43,10 +43,12 @@ export type EnemyAIState = {
   tried: Set<string>;
   huntQ: string[];
   lastHit: boolean | null;
+  winner: boolean;
 };
 
 export type PlayerState = {
   tried: Set<string>;
+  winner: boolean;
 };
 
 export type GameState = {
@@ -57,6 +59,7 @@ export type GameState = {
   playerState: PlayerState;
   boardSize: number;
   userName: string;
+  enemyName: string;
   firstGuessPrompt: boolean;
 };
 

@@ -6,11 +6,11 @@ export async function askBoardSize(message: string): Promise<number> {
     {
       type: "rawlist",
       name: "size",
-      message: chalk.bgBlack.cyanBright(message),
+      message: chalk.bgBlack.magentaBright(message),
       choices: [
-        { name: chalk.bgBlack.cyanBright("6x6"), value: 6 },
-        { name: chalk.bgBlack.cyanBright("8x8"), value: 8 },
-        { name: chalk.bgBlack.cyanBright("10x10"), value: 10 },
+        { name: chalk.bgBlack.magentaBright("👉 6x6"), value: 6 },
+        { name: chalk.bgBlack.magentaBright("👉 8x8"), value: 8 },
+        { name: chalk.bgBlack.magentaBright("👉 10x10"), value: 10 },
       ],
     },
   ]);

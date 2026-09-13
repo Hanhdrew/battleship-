@@ -1,5 +1,3 @@
-//takes an integer and returns a printable board
-
 import type { VisibleBoard } from "../types";
 
 export function generateBoard(num: number): VisibleBoard {
